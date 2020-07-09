@@ -1,0 +1,141 @@
+@mainColor: #e05c5c;
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #f3f3f3;
+}
+
+header {
+  width: 100%;
+  height: 2.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 4px #b3b3b3;
+  border-bottom: 1px solid #f6f6f6;
+  color: #333333;
+}
+.content {
+  .systemInfo {
+     width: 8.8rem;
+    color: #aaa;
+    padding: 5px;
+    text-align: center;
+    font-size: 0.6rem;
+    background: #e3e3e3;
+    border-radius: 4px;
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+  .subInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .nickname {
+      font-size: .6rem;
+      color: #999;
+      margin-bottom: 4px;
+      margin-left: 10px;
+    }
+  }
+  .box {
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 1rem;
+    align-items: center;
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .msg-box {
+      padding: 5px 10px;
+      height: 1.2rem;
+      border-radius: 5px;
+    }
+    .image-box {
+      padding: 5px 15px;
+      width: 110px;
+    }
+  }
+  .right-box {
+    flex-direction: row-reverse;
+    .msg-box {
+      background-color: @mainColor;
+      color: white;
+      margin-right: 10px;
+    }
+  }
+  .left-box {
+    flex-direction: row;
+    .msg-box {
+      background-color: white;
+      margin-left: 10px;
+    }
+  }
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  height: 3rem;
+  background-color: #f2f2f2;
+  border-top: 1px solid #e3e3e3;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  .input-box {
+    width: 68%;
+    border-radius: .6rem;
+    border: none;
+    outline: none;
+    height: 1.8rem;
+    margin: 1rem 0;
+    padding-left: 1rem;
+    font-size: 1rem;
+    &:focus {
+      caret-color: #317EF3;
+    }
+  }
+  .send-btn {
+    background-color: @mainColor;
+    border-radius: .5rem;
+    width: 20%;
+    color: white;
+    border: none;
+    outline: none;
+    padding: .4rem 0;
+    margin: 1rem 0;
+    &:hover {
+      background-color: fade(@mainColor, 60%);
+    }
+  }
+}
+
+@media(min-width: 400px) {
+  body {
+    background-color:white;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items:center;
+  }
+  .container {
+    width: 460px;
+    height: 600px;
+    background-color: #f3f3f3;
+    position: relative;
+  }
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 460px;
+  }
+}

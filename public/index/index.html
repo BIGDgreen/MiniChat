@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简易聊天室</title>
+    <link rel="stylesheet" type="text/css" href="./index.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>欢迎进入BG聊天室</h2>
+        <div class="avatar">
+            <div class="arrow left" onclick="previous()"></div>
+            <div class="wrapper">
+                <img id="curImg" src="../static/images/1.jpg" alt="">
+            </div>
+            <div class="arrow right" onclick="next()"></div>
+        </div>
+        <div><input type="text" name="" id="nameInput" placeholder="请输入昵称"></div>
+        <button onclick="enter()">进入聊天室</button>
+    </div>
+
+    <script>
+        window.onload = function () {
+            let nickname = localStorage.getItem('nickname');
+            let avatar = localStorage.getItem('avatar');
+            if (nickname && avatar) {
+                window.location = '../chat/chat.html';
+            }
+        }
+        const curImg = document.getElementById('curImg');
+        const imgs = [
+            '../static/images/1.jpg',
+            '../static/images/2.jpg',
+            '../static/images/3.jpg',
+            '../static/images/4.jpg',
+            '../static/images/5.jpg',
+            '../static/images/6.jpg',
+        ];
+        let index = 0;
+        function previous() {
+            index--;
+            if (index < 0) index = imgs.length - 1;
+            curImg.src = imgs[index];
+        }
+
+        function next() {
+            index++;
+            if (index > imgs.length - 1) index = 0;
+            curImg.src = imgs[index];
+        }
+
+        function enter() {
+            let avatar = imgs[index];
+            let nickname = document.getElementById('nameInput').value;
+            if (!nickname) alert('请先输入昵称');
+            else {
+                localStorage.setItem('avatar', avatar);
+                localStorage.setItem('nickname', nickname);
+                window.location = '../chat/chat.html';
+            }
+        }
+    </script>
+</body>
+
+</html>

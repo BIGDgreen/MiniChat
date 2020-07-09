@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BG聊天室</title>
+  <link rel="stylesheet" type="text/css" href="./chat.css" />
+  <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
+  <script src="../static/js/socket.io.js"></script>
+</head>
+
+<body>
+  <div id="app" class="container">
+    <header>{{myName}}的聊天室</header>
+    <div class="content">
+      <div class="systemInfo">欢迎来到BG聊天室</div>
+      <div v-for="item in msgs">
+        <div v-if="item.type === 'text'" :class="[item.name === myName? 'right-box' : 'left-box' ,'box']">
+          <img class="avatar" :src="item.avatar"></img>
+          <div class="subInfo">
+            <div v-if="item.name !== myName" class="nickname">{{item.name}}</div>
+            <div class="msg-box">{{item.value}}</div>
+          </div>
+        </div>
+        <div v-if="item.type === 'system'" class="systemInfo">{{item.value}}</div>
+      </div>
+    </div>
+    <footer>
+      <input type="text" class="input-box" v-model="inputValue" />
+      <button class="send-btn" @click="sendMsg">发送</button>
+    </footer>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        systemInfos: [],
+        msgs: [],
+        myName: '',
+        myAvatar: '',
+        inputValue: '',
+        socket: null
+      },
+      created() {
+        window.addEventListener('beforeunload', e => this.exit(e))
+      },
+      mounted() {
+        this.judgeInfo();
+        this.socket = io.connect('http://localhost:3000');
+        this.socket.emit("join", this.myName);
+        this.socket.on('join', (name) => {
+          this.msgs.push({
+            type: 'system',
+            value: `${name}加入了群聊`
+          });
+          console.log(this.msgs);
+        });
+        this.socket.on('exit', (name) => {
+          this.msgs.push({
+            type: 'system',
+            value: `${name}退出了群聊`
+          })
+        })
+        this.socket.on('disconnect', function () {
+          console.log('连接已断开!')
+        });
+        this.socket.on("message", (msg) => {
+          console.log("接收到消息", msg);
+          this.msgs.push(msg)
+        });
+      },
+      beforeDestory() {
+        window.removeEventListener('beforeunload', e => this.exit(e))
+      },
+      methods: {
+        judgeInfo() {
+          const myName = localStorage.getItem('nickname');
+          const myAvatar = localStorage.getItem('avatar');
+          this.myName = myName;
+          this.myAvatar = myAvatar;
+          if (!myName || !myAvatar) {
+            alert('您的信息不完整,请先补充');
+            window.location = '../index/index.html'
+          }
+        },
+        exit(e) {
+          this.socket.emit('exit', this.myName);
+        },
+        // 发送消息
+        sendMsg() {
+          const curmsg = {
+            value: this.inputValue,
+            avatar: this.myAvatar,
+            name: this.myName,
+            type: 'text'
+          };
+          this.socket.emit("message", curmsg);
+          // 输入框清空
+          this.inputValue = '';
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
