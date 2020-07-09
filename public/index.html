@@ -27,7 +27,7 @@
             let nickname = localStorage.getItem('nickname');
             let avatar = localStorage.getItem('avatar');
             if (nickname && avatar) {
-                window.location = '../chat/chat.html';
+                window.location = './chat/chat.html';
             }
         }
         const curImg = document.getElementById('curImg');
@@ -59,7 +59,7 @@
             else {
                 localStorage.setItem('avatar', avatar);
                 localStorage.setItem('nickname', nickname);
-                window.location = '../chat/chat.html';
+                window.location = './chat/chat.html';
             }
         }
     </script>

@@ -6,11 +6,14 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "pm2": "^4.4.0",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "prd": "pm2 start pm2.config.json"
   },
   "author": "",
   "license": "ISC"

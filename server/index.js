@@ -36,9 +36,9 @@ io.on('connection', (socket) => {
   })
 })
 
-// io.on('error', (error) => {
-//   console.log("error:::", error)
-// })
+io.on('error', (error) => {
+  console.log("error:::", error)
+})
 
 // app.listen(3000, () => {
 //   console.log("listen at 3000")

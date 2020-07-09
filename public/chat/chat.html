@@ -7,7 +7,8 @@
   <title>BG聊天室</title>
   <link rel="stylesheet" type="text/css" href="./chat.css" />
   <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
-  <script src="../static/js/socket.io.js"></script>
+  <!-- <script src="./static/js/socket.io.js"></script> -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 </head>
 
 <body>
@@ -48,6 +49,7 @@
       mounted() {
         this.judgeInfo();
         this.socket = io.connect('http://localhost:3000');
+        // this.socket = io.connect('http://www.bigdgreen.com:3000');
         this.socket.emit("join", this.myName);
         this.socket.on('join', (name) => {
           this.msgs.push({
@@ -81,7 +83,7 @@
           this.myAvatar = myAvatar;
           if (!myName || !myAvatar) {
             alert('您的信息不完整,请先补充');
-            window.location = '../index/index.html'
+            window.location = './index/index.html'
           }
         },
         exit(e) {
@@ -89,6 +91,7 @@
         },
         // 发送消息
         sendMsg() {
+          if (!this.inputValue) return;
           const curmsg = {
             value: this.inputValue,
             avatar: this.myAvatar,
