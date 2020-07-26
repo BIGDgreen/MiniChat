@@ -7,7 +7,9 @@ body {
 header {
   width: 100%;
   height: 2.2rem;
+  position: fixed;
   display: flex;
+  top: 0;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -15,6 +17,12 @@ header {
   box-shadow: 0 2px 4px #b3b3b3;
   border-bottom: 1px solid #f6f6f6;
   color: #333333;
+}
+.content {
+  min-height: 83%;
+  max-height: 83%;
+  overflow-y: scroll;
+  margin-top: 2.3rem;
 }
 .content .systemInfo {
   width: 8.8rem;
@@ -114,7 +122,7 @@ footer .send-btn {
 footer .send-btn:hover {
   background-color: rgba(224, 92, 92, 0.6);
 }
-@media (min-width: 400px) {
+@media (min-width: 500px) {
   body {
     background-color: white;
     width: 100%;
@@ -126,9 +134,13 @@ footer .send-btn:hover {
   }
   .container {
     width: 460px;
-    height: 600px;
+    height: 83%;
     background-color: #f3f3f3;
     position: relative;
+  }
+  header {
+    width: 460px;
+    top: auto;
   }
   footer {
     position: absolute;

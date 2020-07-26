@@ -14,7 +14,7 @@
 <body>
   <div id="app" class="container">
     <header>{{myName}}的聊天室</header>
-    <div class="content">
+    <div class="content" ref="content">
       <div class="systemInfo">欢迎来到BG聊天室</div>
       <div v-for="item in msgs">
         <div v-if="item.type === 'text'" :class="[item.name === myName? 'right-box' : 'left-box' ,'box']">
@@ -28,7 +28,7 @@
       </div>
     </div>
     <footer>
-      <input type="text" class="input-box" v-model="inputValue" />
+      <input type="text" class="input-box" v-model="inputValue" @keyup.enter="sendMsg" />
       <button class="send-btn" @click="sendMsg">发送</button>
     </footer>
   </div>
@@ -101,6 +101,10 @@
           this.socket.emit("message", curmsg);
           // 输入框清空
           this.inputValue = '';
+          // 聊天窗口定位到最底部
+          this.$nextTick(() => {
+            this.$refs.content.scrollTop = this.$refs.content.scrollHeight;
+          });
         }
       }
     })
