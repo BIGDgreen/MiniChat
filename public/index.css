@@ -27,7 +27,7 @@
       height: 100%;
   }
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 500px) {
       .container {
           width: 500px;
           height: 83%;

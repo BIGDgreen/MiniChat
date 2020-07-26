@@ -48,8 +48,8 @@
       },
       mounted() {
         this.judgeInfo();
-        this.socket = io.connect('http://localhost:3000');
-        // this.socket = io.connect('http://www.bigdgreen.com:3000');
+        // this.socket = io.connect('http://localhost:3000');
+        this.socket = io.connect('http://www.bigdgreen.com:3000');
         this.socket.emit("join", this.myName);
         this.socket.on('join', (name) => {
           this.msgs.push({
@@ -83,7 +83,7 @@
           this.myAvatar = myAvatar;
           if (!myName || !myAvatar) {
             alert('您的信息不完整,请先补充');
-            window.location = './index/index.html'
+            window.location = '../index.html'
           }
         },
         exit(e) {
